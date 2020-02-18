@@ -1,0 +1,1276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataProductsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CatBrands">
+          <Key>
+            <PropertyRef Name="IdBrand" />
+          </Key>
+          <Property Name="IdBrand" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="DateUpdate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatCatalogs">
+          <Key>
+            <PropertyRef Name="IdCatalog" />
+          </Key>
+          <Property Name="IdCatalog" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProvider" Type="int" Nullable="false" />
+          <Property Name="Season" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="StarActiveDate" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EndActiveDate" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateUpdate" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsEnabled" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatColors">
+          <Key>
+            <PropertyRef Name="IdColor" />
+          </Key>
+          <Property Name="IdColor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="HexaDecimal" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsEnable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatProviders">
+          <Key>
+            <PropertyRef Name="IdProvider" />
+          </Key>
+          <Property Name="IdProvider" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsEnabled" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateUpdate" Type="datetime" Nullable="false" />
+          <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatRatings">
+          <Key>
+            <PropertyRef Name="IdRating" />
+          </Key>
+          <Property Name="IdRating" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatSizes">
+          <Key>
+            <PropertyRef Name="IdSize" />
+          </Key>
+          <Property Name="IdSize" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdType" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Unity" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatTypeDetails">
+          <Key>
+            <PropertyRef Name="IdTypeDetail" />
+          </Key>
+          <Property Name="IdTypeDetail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdType" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatTypeProduct">
+          <Key>
+            <PropertyRef Name="IdType" />
+          </Key>
+          <Property Name="IdType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateUpdate" Type="datetime" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChangesOnProduct">
+          <Key>
+            <PropertyRef Name="IdLog" />
+          </Key>
+          <Property Name="IdLog" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="ActionMade" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="IdComent" />
+          </Key>
+          <Property Name="IdComent" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="IdRating" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateCommnet" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetailProduct">
+          <Key>
+            <PropertyRef Name="IdDetail" />
+          </Key>
+          <Property Name="IdDetail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="IdTypeDetail" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateUpdate" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HistorialT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="videoName" Type="varchar" MaxLength="100" />
+          <Property Name="videoId" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ImagesProduct">
+          <Key>
+            <PropertyRef Name="IdImage" />
+          </Key>
+          <Property Name="IdImage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdImageProduct" Type="int" Nullable="false" />
+          <Property Name="Decription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Image" Type="varbinary(max)" Nullable="false" />
+          <Property Name="DateUpdate" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsEnabled" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdType" Type="int" />
+          <Property Name="IdColor" Type="int" />
+          <Property Name="IdBrand" Type="int" />
+          <Property Name="IdProvider" Type="int" />
+          <Property Name="IdCatalog" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Observations" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PriceDistributor" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PriceClient" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PriceMember" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="Keywords" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateUpdate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Qualification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="IdRating" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="DateUpdate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SimilarProduct">
+          <Key>
+            <PropertyRef Name="IdSimilarProduct" />
+          </Key>
+          <Property Name="IdSimilarProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="IdSimilary" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SizeForProduct">
+          <Key>
+            <PropertyRef Name="IdSizeProduct" />
+          </Key>
+          <Property Name="IdSizeProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="IdSize" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="16" Nullable="false" />
+          <Property Name="Role" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CatBrandsProducts">
+          <End Role="CatBrands" Type="Self.CatBrands" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatBrands">
+              <PropertyRef Name="IdBrand" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="IdBrand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatCatalogsCatProviders">
+          <End Role="CatProviders" Type="Self.CatProviders" Multiplicity="1" />
+          <End Role="CatCatalogs" Type="Self.CatCatalogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatProviders">
+              <PropertyRef Name="IdProvider" />
+            </Principal>
+            <Dependent Role="CatCatalogs">
+              <PropertyRef Name="IdProvider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatCatalogsProducts">
+          <End Role="CatCatalogs" Type="Self.CatCatalogs" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatCatalogs">
+              <PropertyRef Name="IdCatalog" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="IdCatalog" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatColorsProducts">
+          <End Role="CatColors" Type="Self.CatColors" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatColors">
+              <PropertyRef Name="IdColor" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="IdColor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatRatingsComments">
+          <End Role="CatRatings" Type="Self.CatRatings" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatRatings">
+              <PropertyRef Name="IdRating" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="IdRating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatRatingsQualification">
+          <End Role="CatRatings" Type="Self.CatRatings" Multiplicity="1" />
+          <End Role="Qualification" Type="Self.Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatRatings">
+              <PropertyRef Name="IdRating" />
+            </Principal>
+            <Dependent Role="Qualification">
+              <PropertyRef Name="IdRating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatSizesSizeForProduct">
+          <End Role="CatSizes" Type="Self.CatSizes" Multiplicity="1" />
+          <End Role="SizeForProduct" Type="Self.SizeForProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatSizes">
+              <PropertyRef Name="IdSize" />
+            </Principal>
+            <Dependent Role="SizeForProduct">
+              <PropertyRef Name="IdSize" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatTypeDetailsDetailProduct">
+          <End Role="CatTypeDetails" Type="Self.CatTypeDetails" Multiplicity="1" />
+          <End Role="DetailProduct" Type="Self.DetailProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTypeDetails">
+              <PropertyRef Name="IdTypeDetail" />
+            </Principal>
+            <Dependent Role="DetailProduct">
+              <PropertyRef Name="IdTypeDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatTypeProductCatSizes">
+          <End Role="CatTypeProduct" Type="Self.CatTypeProduct" Multiplicity="1" />
+          <End Role="CatSizes" Type="Self.CatSizes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTypeProduct">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="CatSizes">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatTypeProductCatTypeDetails">
+          <End Role="CatTypeProduct" Type="Self.CatTypeProduct" Multiplicity="1" />
+          <End Role="CatTypeDetails" Type="Self.CatTypeDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTypeProduct">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="CatTypeDetails">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatTypeProductProducts">
+          <End Role="CatTypeProduct" Type="Self.CatTypeProduct" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTypeProduct">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsCatProviders">
+          <End Role="CatProviders" Type="Self.CatProviders" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatProviders">
+              <PropertyRef Name="IdProvider" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="IdProvider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsComments">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsDetailProduct">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="DetailProduct" Type="Self.DetailProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetailProduct">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsImagesProduct">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ImagesProduct" Type="Self.ImagesProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImagesProduct">
+              <PropertyRef Name="IdImageProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsSimilarProduct">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="SimilarProduct" Type="Self.SimilarProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SimilarProduct">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsSizeForProduct">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="SizeForProduct" Type="Self.SizeForProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SizeForProduct">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QualificationProducts">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Qualification" Type="Self.Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Qualification">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataProductsModelStoreContainer">
+          <EntitySet Name="CatBrands" EntityType="Self.CatBrands" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatCatalogs" EntityType="Self.CatCatalogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatColors" EntityType="Self.CatColors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatProviders" EntityType="Self.CatProviders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatRatings" EntityType="Self.CatRatings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatSizes" EntityType="Self.CatSizes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatTypeDetails" EntityType="Self.CatTypeDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatTypeProduct" EntityType="Self.CatTypeProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChangesOnProduct" EntityType="Self.ChangesOnProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetailProduct" EntityType="Self.DetailProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistorialT" EntityType="Self.HistorialT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImagesProduct" EntityType="Self.ImagesProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Qualification" EntityType="Self.Qualification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SimilarProduct" EntityType="Self.SimilarProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SizeForProduct" EntityType="Self.SizeForProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CatBrandsProducts" Association="Self.FK_CatBrandsProducts">
+            <End Role="CatBrands" EntitySet="CatBrands" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatCatalogsCatProviders" Association="Self.FK_CatCatalogsCatProviders">
+            <End Role="CatProviders" EntitySet="CatProviders" />
+            <End Role="CatCatalogs" EntitySet="CatCatalogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatCatalogsProducts" Association="Self.FK_CatCatalogsProducts">
+            <End Role="CatCatalogs" EntitySet="CatCatalogs" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatColorsProducts" Association="Self.FK_CatColorsProducts">
+            <End Role="CatColors" EntitySet="CatColors" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatRatingsComments" Association="Self.FK_CatRatingsComments">
+            <End Role="CatRatings" EntitySet="CatRatings" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatRatingsQualification" Association="Self.FK_CatRatingsQualification">
+            <End Role="CatRatings" EntitySet="CatRatings" />
+            <End Role="Qualification" EntitySet="Qualification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatSizesSizeForProduct" Association="Self.FK_CatSizesSizeForProduct">
+            <End Role="CatSizes" EntitySet="CatSizes" />
+            <End Role="SizeForProduct" EntitySet="SizeForProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatTypeDetailsDetailProduct" Association="Self.FK_CatTypeDetailsDetailProduct">
+            <End Role="CatTypeDetails" EntitySet="CatTypeDetails" />
+            <End Role="DetailProduct" EntitySet="DetailProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatTypeProductCatSizes" Association="Self.FK_CatTypeProductCatSizes">
+            <End Role="CatTypeProduct" EntitySet="CatTypeProduct" />
+            <End Role="CatSizes" EntitySet="CatSizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatTypeProductCatTypeDetails" Association="Self.FK_CatTypeProductCatTypeDetails">
+            <End Role="CatTypeProduct" EntitySet="CatTypeProduct" />
+            <End Role="CatTypeDetails" EntitySet="CatTypeDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatTypeProductProducts" Association="Self.FK_CatTypeProductProducts">
+            <End Role="CatTypeProduct" EntitySet="CatTypeProduct" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsCatProviders" Association="Self.FK_ProductsCatProviders">
+            <End Role="CatProviders" EntitySet="CatProviders" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsComments" Association="Self.FK_ProductsComments">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsDetailProduct" Association="Self.FK_ProductsDetailProduct">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="DetailProduct" EntitySet="DetailProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsImagesProduct" Association="Self.FK_ProductsImagesProduct">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ImagesProduct" EntitySet="ImagesProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsSimilarProduct" Association="Self.FK_ProductsSimilarProduct">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SimilarProduct" EntitySet="SimilarProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsSizeForProduct" Association="Self.FK_ProductsSizeForProduct">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SizeForProduct" EntitySet="SizeForProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QualificationProducts" Association="Self.FK_QualificationProducts">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Qualification" EntitySet="Qualification" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataProductsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CatBrand">
+          <Key>
+            <PropertyRef Name="IdBrand" />
+          </Key>
+          <Property Name="IdBrand" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_CatBrandsProducts" FromRole="CatBrands" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="CatCatalog">
+          <Key>
+            <PropertyRef Name="IdCatalog" />
+          </Key>
+          <Property Name="IdCatalog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProvider" Type="Int32" Nullable="false" />
+          <Property Name="Season" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StarActiveDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EndActiveDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateUpdate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEnabled" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CatProvider" Relationship="Self.FK_CatCatalogsCatProviders" FromRole="CatCatalogs" ToRole="CatProviders" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_CatCatalogsProducts" FromRole="CatCatalogs" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="CatColor">
+          <Key>
+            <PropertyRef Name="IdColor" />
+          </Key>
+          <Property Name="IdColor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HexaDecimal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEnable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_CatColorsProducts" FromRole="CatColors" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="CatProvider">
+          <Key>
+            <PropertyRef Name="IdProvider" />
+          </Key>
+          <Property Name="IdProvider" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEnabled" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CatCatalogs" Relationship="Self.FK_CatCatalogsCatProviders" FromRole="CatProviders" ToRole="CatCatalogs" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductsCatProviders" FromRole="CatProviders" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="CatRating">
+          <Key>
+            <PropertyRef Name="IdRating" />
+          </Key>
+          <Property Name="IdRating" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_CatRatingsComments" FromRole="CatRatings" ToRole="Comments" />
+          <NavigationProperty Name="Qualifications" Relationship="Self.FK_CatRatingsQualification" FromRole="CatRatings" ToRole="Qualification" />
+        </EntityType>
+        <EntityType Name="CatSize">
+          <Key>
+            <PropertyRef Name="IdSize" />
+          </Key>
+          <Property Name="IdSize" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdType" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Unity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SizeForProducts" Relationship="Self.FK_CatSizesSizeForProduct" FromRole="CatSizes" ToRole="SizeForProduct" />
+          <NavigationProperty Name="CatTypeProduct" Relationship="Self.FK_CatTypeProductCatSizes" FromRole="CatSizes" ToRole="CatTypeProduct" />
+        </EntityType>
+        <EntityType Name="CatTypeDetail">
+          <Key>
+            <PropertyRef Name="IdTypeDetail" />
+          </Key>
+          <Property Name="IdTypeDetail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdType" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DetailProducts" Relationship="Self.FK_CatTypeDetailsDetailProduct" FromRole="CatTypeDetails" ToRole="DetailProduct" />
+          <NavigationProperty Name="CatTypeProduct" Relationship="Self.FK_CatTypeProductCatTypeDetails" FromRole="CatTypeDetails" ToRole="CatTypeProduct" />
+        </EntityType>
+        <EntityType Name="CatTypeProduct">
+          <Key>
+            <PropertyRef Name="IdType" />
+          </Key>
+          <Property Name="IdType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CatSizes" Relationship="Self.FK_CatTypeProductCatSizes" FromRole="CatTypeProduct" ToRole="CatSizes" />
+          <NavigationProperty Name="CatTypeDetails" Relationship="Self.FK_CatTypeProductCatTypeDetails" FromRole="CatTypeProduct" ToRole="CatTypeDetails" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_CatTypeProductProducts" FromRole="CatTypeProduct" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="ChangesOnProduct">
+          <Key>
+            <PropertyRef Name="IdLog" />
+          </Key>
+          <Property Name="IdLog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProduct" Type="Int32" Nullable="false" />
+          <Property Name="ActionMade" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="IdComent" />
+          </Key>
+          <Property Name="IdComent" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProduct" Type="Int32" Nullable="false" />
+          <Property Name="IdRating" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCommnet" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CatRating" Relationship="Self.FK_CatRatingsComments" FromRole="Comments" ToRole="CatRatings" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductsComments" FromRole="Comments" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="DetailProduct">
+          <Key>
+            <PropertyRef Name="IdDetail" />
+          </Key>
+          <Property Name="IdDetail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProduct" Type="Int32" Nullable="false" />
+          <Property Name="IdTypeDetail" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateUpdate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CatTypeDetail" Relationship="Self.FK_CatTypeDetailsDetailProduct" FromRole="DetailProduct" ToRole="CatTypeDetails" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductsDetailProduct" FromRole="DetailProduct" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="HistorialT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="videoName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="videoId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ImagesProduct">
+          <Key>
+            <PropertyRef Name="IdImage" />
+          </Key>
+          <Property Name="IdImage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdImageProduct" Type="Int32" Nullable="false" />
+          <Property Name="Decription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="DateUpdate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEnabled" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductsImagesProduct" FromRole="ImagesProduct" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdType" Type="Int32" />
+          <Property Name="IdColor" Type="Int32" />
+          <Property Name="IdBrand" Type="Int32" />
+          <Property Name="IdProvider" Type="Int32" />
+          <Property Name="IdCatalog" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Observations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PriceDistributor" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PriceClient" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PriceMember" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="Keywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CatBrand" Relationship="Self.FK_CatBrandsProducts" FromRole="Products" ToRole="CatBrands" />
+          <NavigationProperty Name="CatCatalog" Relationship="Self.FK_CatCatalogsProducts" FromRole="Products" ToRole="CatCatalogs" />
+          <NavigationProperty Name="CatColor" Relationship="Self.FK_CatColorsProducts" FromRole="Products" ToRole="CatColors" />
+          <NavigationProperty Name="CatProvider" Relationship="Self.FK_ProductsCatProviders" FromRole="Products" ToRole="CatProviders" />
+          <NavigationProperty Name="CatTypeProduct" Relationship="Self.FK_CatTypeProductProducts" FromRole="Products" ToRole="CatTypeProduct" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_ProductsComments" FromRole="Products" ToRole="Comments" />
+          <NavigationProperty Name="DetailProducts" Relationship="Self.FK_ProductsDetailProduct" FromRole="Products" ToRole="DetailProduct" />
+          <NavigationProperty Name="ImagesProducts" Relationship="Self.FK_ProductsImagesProduct" FromRole="Products" ToRole="ImagesProduct" />
+          <NavigationProperty Name="SimilarProducts" Relationship="Self.FK_ProductsSimilarProduct" FromRole="Products" ToRole="SimilarProduct" />
+          <NavigationProperty Name="SizeForProducts" Relationship="Self.FK_ProductsSizeForProduct" FromRole="Products" ToRole="SizeForProduct" />
+          <NavigationProperty Name="Qualifications" Relationship="Self.FK_QualificationProducts" FromRole="Products" ToRole="Qualification" />
+        </EntityType>
+        <EntityType Name="Qualification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProduct" Type="Int32" Nullable="false" />
+          <Property Name="IdRating" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CatRating" Relationship="Self.FK_CatRatingsQualification" FromRole="Qualification" ToRole="CatRatings" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_QualificationProducts" FromRole="Qualification" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="SimilarProduct">
+          <Key>
+            <PropertyRef Name="IdSimilarProduct" />
+          </Key>
+          <Property Name="IdSimilarProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProduct" Type="Int32" Nullable="false" />
+          <Property Name="IdSimilary" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductsSimilarProduct" FromRole="SimilarProduct" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="SizeForProduct">
+          <Key>
+            <PropertyRef Name="IdSizeProduct" />
+          </Key>
+          <Property Name="IdSizeProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProduct" Type="Int32" Nullable="false" />
+          <Property Name="IdSize" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CatSize" Relationship="Self.FK_CatSizesSizeForProduct" FromRole="SizeForProduct" ToRole="CatSizes" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductsSizeForProduct" FromRole="SizeForProduct" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="16" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CatBrandsProducts">
+          <End Role="CatBrands" Type="Self.CatBrand" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatBrands">
+              <PropertyRef Name="IdBrand" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="IdBrand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatCatalogsCatProviders">
+          <End Role="CatProviders" Type="Self.CatProvider" Multiplicity="1" />
+          <End Role="CatCatalogs" Type="Self.CatCatalog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatProviders">
+              <PropertyRef Name="IdProvider" />
+            </Principal>
+            <Dependent Role="CatCatalogs">
+              <PropertyRef Name="IdProvider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatCatalogsProducts">
+          <End Role="CatCatalogs" Type="Self.CatCatalog" Multiplicity="1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatCatalogs">
+              <PropertyRef Name="IdCatalog" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="IdCatalog" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatColorsProducts">
+          <End Role="CatColors" Type="Self.CatColor" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatColors">
+              <PropertyRef Name="IdColor" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="IdColor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsCatProviders">
+          <End Role="CatProviders" Type="Self.CatProvider" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatProviders">
+              <PropertyRef Name="IdProvider" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="IdProvider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatRatingsComments">
+          <End Role="CatRatings" Type="Self.CatRating" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatRatings">
+              <PropertyRef Name="IdRating" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="IdRating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatRatingsQualification">
+          <End Role="CatRatings" Type="Self.CatRating" Multiplicity="1" />
+          <End Role="Qualification" Type="Self.Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatRatings">
+              <PropertyRef Name="IdRating" />
+            </Principal>
+            <Dependent Role="Qualification">
+              <PropertyRef Name="IdRating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatSizesSizeForProduct">
+          <End Role="CatSizes" Type="Self.CatSize" Multiplicity="1" />
+          <End Role="SizeForProduct" Type="Self.SizeForProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatSizes">
+              <PropertyRef Name="IdSize" />
+            </Principal>
+            <Dependent Role="SizeForProduct">
+              <PropertyRef Name="IdSize" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatTypeProductCatSizes">
+          <End Role="CatTypeProduct" Type="Self.CatTypeProduct" Multiplicity="1" />
+          <End Role="CatSizes" Type="Self.CatSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTypeProduct">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="CatSizes">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatTypeDetailsDetailProduct">
+          <End Role="CatTypeDetails" Type="Self.CatTypeDetail" Multiplicity="1" />
+          <End Role="DetailProduct" Type="Self.DetailProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTypeDetails">
+              <PropertyRef Name="IdTypeDetail" />
+            </Principal>
+            <Dependent Role="DetailProduct">
+              <PropertyRef Name="IdTypeDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatTypeProductCatTypeDetails">
+          <End Role="CatTypeProduct" Type="Self.CatTypeProduct" Multiplicity="1" />
+          <End Role="CatTypeDetails" Type="Self.CatTypeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTypeProduct">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="CatTypeDetails">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatTypeProductProducts">
+          <End Role="CatTypeProduct" Type="Self.CatTypeProduct" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTypeProduct">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsComments">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsDetailProduct">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="DetailProduct" Type="Self.DetailProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetailProduct">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsImagesProduct">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="ImagesProduct" Type="Self.ImagesProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImagesProduct">
+              <PropertyRef Name="IdImageProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsSimilarProduct">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="SimilarProduct" Type="Self.SimilarProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SimilarProduct">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsSizeForProduct">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="SizeForProduct" Type="Self.SizeForProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SizeForProduct">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QualificationProducts">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="Qualification" Type="Self.Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Qualification">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataProductsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CatBrands" EntityType="Self.CatBrand" />
+          <EntitySet Name="CatCatalogs" EntityType="Self.CatCatalog" />
+          <EntitySet Name="CatColors" EntityType="Self.CatColor" />
+          <EntitySet Name="CatProviders" EntityType="Self.CatProvider" />
+          <EntitySet Name="CatRatings" EntityType="Self.CatRating" />
+          <EntitySet Name="CatSizes" EntityType="Self.CatSize" />
+          <EntitySet Name="CatTypeDetails" EntityType="Self.CatTypeDetail" />
+          <EntitySet Name="CatTypeProducts" EntityType="Self.CatTypeProduct" />
+          <EntitySet Name="ChangesOnProducts" EntityType="Self.ChangesOnProduct" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="DetailProducts" EntityType="Self.DetailProduct" />
+          <EntitySet Name="HistorialTs" EntityType="Self.HistorialT" />
+          <EntitySet Name="ImagesProducts" EntityType="Self.ImagesProduct" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Qualifications" EntityType="Self.Qualification" />
+          <EntitySet Name="SimilarProducts" EntityType="Self.SimilarProduct" />
+          <EntitySet Name="SizeForProducts" EntityType="Self.SizeForProduct" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_CatBrandsProducts" Association="Self.FK_CatBrandsProducts">
+            <End Role="CatBrands" EntitySet="CatBrands" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatCatalogsCatProviders" Association="Self.FK_CatCatalogsCatProviders">
+            <End Role="CatProviders" EntitySet="CatProviders" />
+            <End Role="CatCatalogs" EntitySet="CatCatalogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatCatalogsProducts" Association="Self.FK_CatCatalogsProducts">
+            <End Role="CatCatalogs" EntitySet="CatCatalogs" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatColorsProducts" Association="Self.FK_CatColorsProducts">
+            <End Role="CatColors" EntitySet="CatColors" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsCatProviders" Association="Self.FK_ProductsCatProviders">
+            <End Role="CatProviders" EntitySet="CatProviders" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatRatingsComments" Association="Self.FK_CatRatingsComments">
+            <End Role="CatRatings" EntitySet="CatRatings" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatRatingsQualification" Association="Self.FK_CatRatingsQualification">
+            <End Role="CatRatings" EntitySet="CatRatings" />
+            <End Role="Qualification" EntitySet="Qualifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatSizesSizeForProduct" Association="Self.FK_CatSizesSizeForProduct">
+            <End Role="CatSizes" EntitySet="CatSizes" />
+            <End Role="SizeForProduct" EntitySet="SizeForProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatTypeProductCatSizes" Association="Self.FK_CatTypeProductCatSizes">
+            <End Role="CatTypeProduct" EntitySet="CatTypeProducts" />
+            <End Role="CatSizes" EntitySet="CatSizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatTypeDetailsDetailProduct" Association="Self.FK_CatTypeDetailsDetailProduct">
+            <End Role="CatTypeDetails" EntitySet="CatTypeDetails" />
+            <End Role="DetailProduct" EntitySet="DetailProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatTypeProductCatTypeDetails" Association="Self.FK_CatTypeProductCatTypeDetails">
+            <End Role="CatTypeProduct" EntitySet="CatTypeProducts" />
+            <End Role="CatTypeDetails" EntitySet="CatTypeDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatTypeProductProducts" Association="Self.FK_CatTypeProductProducts">
+            <End Role="CatTypeProduct" EntitySet="CatTypeProducts" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsComments" Association="Self.FK_ProductsComments">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsDetailProduct" Association="Self.FK_ProductsDetailProduct">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="DetailProduct" EntitySet="DetailProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsImagesProduct" Association="Self.FK_ProductsImagesProduct">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ImagesProduct" EntitySet="ImagesProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsSimilarProduct" Association="Self.FK_ProductsSimilarProduct">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SimilarProduct" EntitySet="SimilarProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsSizeForProduct" Association="Self.FK_ProductsSizeForProduct">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SizeForProduct" EntitySet="SizeForProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QualificationProducts" Association="Self.FK_QualificationProducts">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Qualification" EntitySet="Qualifications" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataProductsModelStoreContainer" CdmEntityContainer="DataProductsEntities">
+          <EntitySetMapping Name="CatBrands">
+            <EntityTypeMapping TypeName="DataProductsModel.CatBrand">
+              <MappingFragment StoreEntitySet="CatBrands">
+                <ScalarProperty Name="IdBrand" ColumnName="IdBrand" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatCatalogs">
+            <EntityTypeMapping TypeName="DataProductsModel.CatCatalog">
+              <MappingFragment StoreEntitySet="CatCatalogs">
+                <ScalarProperty Name="IdCatalog" ColumnName="IdCatalog" />
+                <ScalarProperty Name="IdProvider" ColumnName="IdProvider" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="StarActiveDate" ColumnName="StarActiveDate" />
+                <ScalarProperty Name="EndActiveDate" ColumnName="EndActiveDate" />
+                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatColors">
+            <EntityTypeMapping TypeName="DataProductsModel.CatColor">
+              <MappingFragment StoreEntitySet="CatColors">
+                <ScalarProperty Name="IdColor" ColumnName="IdColor" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="HexaDecimal" ColumnName="HexaDecimal" />
+                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatProviders">
+            <EntityTypeMapping TypeName="DataProductsModel.CatProvider">
+              <MappingFragment StoreEntitySet="CatProviders">
+                <ScalarProperty Name="IdProvider" ColumnName="IdProvider" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatRatings">
+            <EntityTypeMapping TypeName="DataProductsModel.CatRating">
+              <MappingFragment StoreEntitySet="CatRatings">
+                <ScalarProperty Name="IdRating" ColumnName="IdRating" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatSizes">
+            <EntityTypeMapping TypeName="DataProductsModel.CatSize">
+              <MappingFragment StoreEntitySet="CatSizes">
+                <ScalarProperty Name="IdSize" ColumnName="IdSize" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Unity" ColumnName="Unity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatTypeDetails">
+            <EntityTypeMapping TypeName="DataProductsModel.CatTypeDetail">
+              <MappingFragment StoreEntitySet="CatTypeDetails">
+                <ScalarProperty Name="IdTypeDetail" ColumnName="IdTypeDetail" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatTypeProducts">
+            <EntityTypeMapping TypeName="DataProductsModel.CatTypeProduct">
+              <MappingFragment StoreEntitySet="CatTypeProduct">
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChangesOnProducts">
+            <EntityTypeMapping TypeName="DataProductsModel.ChangesOnProduct">
+              <MappingFragment StoreEntitySet="ChangesOnProduct">
+                <ScalarProperty Name="IdLog" ColumnName="IdLog" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="ActionMade" ColumnName="ActionMade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="DataProductsModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="IdComent" ColumnName="IdComent" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="IdRating" ColumnName="IdRating" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Comment1" ColumnName="Comment" />
+                <ScalarProperty Name="DateCommnet" ColumnName="DateCommnet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailProducts">
+            <EntityTypeMapping TypeName="DataProductsModel.DetailProduct">
+              <MappingFragment StoreEntitySet="DetailProduct">
+                <ScalarProperty Name="IdDetail" ColumnName="IdDetail" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="IdTypeDetail" ColumnName="IdTypeDetail" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistorialTs">
+            <EntityTypeMapping TypeName="DataProductsModel.HistorialT">
+              <MappingFragment StoreEntitySet="HistorialT">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="videoName" ColumnName="videoName" />
+                <ScalarProperty Name="videoId" ColumnName="videoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImagesProducts">
+            <EntityTypeMapping TypeName="DataProductsModel.ImagesProduct">
+              <MappingFragment StoreEntitySet="ImagesProduct">
+                <ScalarProperty Name="IdImage" ColumnName="IdImage" />
+                <ScalarProperty Name="IdImageProduct" ColumnName="IdImageProduct" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="DataProductsModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="IdColor" ColumnName="IdColor" />
+                <ScalarProperty Name="IdBrand" ColumnName="IdBrand" />
+                <ScalarProperty Name="IdProvider" ColumnName="IdProvider" />
+                <ScalarProperty Name="IdCatalog" ColumnName="IdCatalog" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Observations" ColumnName="Observations" />
+                <ScalarProperty Name="PriceDistributor" ColumnName="PriceDistributor" />
+                <ScalarProperty Name="PriceClient" ColumnName="PriceClient" />
+                <ScalarProperty Name="PriceMember" ColumnName="PriceMember" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="Keywords" ColumnName="Keywords" />
+                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Qualifications">
+            <EntityTypeMapping TypeName="DataProductsModel.Qualification">
+              <MappingFragment StoreEntitySet="Qualification">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="IdRating" ColumnName="IdRating" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SimilarProducts">
+            <EntityTypeMapping TypeName="DataProductsModel.SimilarProduct">
+              <MappingFragment StoreEntitySet="SimilarProduct">
+                <ScalarProperty Name="IdSimilarProduct" ColumnName="IdSimilarProduct" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="IdSimilary" ColumnName="IdSimilary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SizeForProducts">
+            <EntityTypeMapping TypeName="DataProductsModel.SizeForProduct">
+              <MappingFragment StoreEntitySet="SizeForProduct">
+                <ScalarProperty Name="IdSizeProduct" ColumnName="IdSizeProduct" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="IdSize" ColumnName="IdSize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DataProductsModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
