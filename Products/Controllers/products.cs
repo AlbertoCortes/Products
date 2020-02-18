@@ -15,19 +15,18 @@ namespace Products.Controllers
     public class products : ApiController
     {
         private DataProductsEntities db = new DataProductsEntities();
-
-        // GET: api/products
-        public List<ProductDTO> GetProducts()
+        public List<ProductDTO> CastFromDB()
         {
             List<ProductDTO> prod = new List<ProductDTO>();
             foreach (var item in db.Products)
             {
-                prod.Add(new ProductDTO {
-                IdProduct = item.Id,
-                Name = item.Nombre,
-                Description = item.Description,
-                Price = item.PriceClient,
-                Image = null
+                prod.Add(new ProductDTO
+                {
+                    IdProduct = item.Id,
+                    Name = item.Nombre,
+                    Description = item.Description,
+                    Price = item.PriceClient,
+                    Image = null
                 }
                 );
             }
@@ -35,18 +34,41 @@ namespace Products.Controllers
             return prod;
         }
 
+        // GET: api/products
+        public List<ProductDTO> GetProducts()
+        {
+            List<ProductDTO> prod = CastFromDB();
+            return prod;
+        }
+
         // GET: api/products/5
-        [ResponseType(typeof(Product))]
+        [ResponseType(typeof(ProductDTO))]
         public IHttpActionResult GetProduct(int id)
         {
-            Product product = db.Products.Find(id);
-            if (product == null)
+            List<ProductDTO> prod = CastFromDB();
+            ProductDTO productByID = prod.FirstOrDefault(p => p.IdProduct == id);
+            
+            if (productByID == null)
             {
                 return NotFound();
             }
 
-            return Ok(product);
+            return Ok(productByID);
         }
+
+        [ResponseType(typeof(List<ProductDTO>))]
+        public IHttpActionResult GetProduct(string keyword)
+        {
+            List<ProductDTO> producstByKeyword = CastFromDB().Where(p => p.Name.Contains(keyword)).ToList();
+
+            if (producstByKeyword == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(producstByKeyword);
+        }
+
 
         // PUT: api/products/5
         [ResponseType(typeof(void))]
