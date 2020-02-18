@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Products.Models
 {
-    public class products
+    public class Products
     {
         public int  IdProduct { get; set; }
         public string Name { get; set; }
