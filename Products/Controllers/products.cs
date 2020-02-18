@@ -17,9 +17,22 @@ namespace Products.Controllers
         private DataProductsEntities db = new DataProductsEntities();
 
         // GET: api/products
-        public IQueryable<Product> GetProducts()
+        public List<ProductDTO> GetProducts()
         {
-            return db.Products;
+            List<ProductDTO> prod = new List<ProductDTO>();
+            foreach (var item in db.Products)
+            {
+                prod.Add(new ProductDTO {
+                IdProduct = item.Id,
+                Name = item.Nombre,
+                Description = item.Description,
+                Price = item.PriceClient,
+                Image = null
+                }
+                );
+            }
+
+            return prod;
         }
 
         // GET: api/products/5
