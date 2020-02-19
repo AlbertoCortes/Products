@@ -110,15 +110,33 @@ namespace Products.Controllers
         [HttpPost]
         public IHttpActionResult Post([FromBody]ProductDTO prod)
         {
+            
             Models.Products newProd = new Models.Products {
+                IdCatalog = 3,
                 Nombre = prod.Name,
                 Description = prod.Description,
                 PriceClient = prod.Price,
+                Title= "",
+                Observations = "",
+                Keywords = "",
+                IsEnabled = true,
+                DateUpdate = DateTime.Now.Date
                 
             };
             db.Products.Add(newProd);
+            //db.SaveChanges();
+            Models.ImagesProduct newImage = new Models.ImagesProduct {
+                IdImageProduct = newProd.Id,
+                Image = prod.Image,
+                Decription = "image",
+                DateUpdate = DateTime.Now.Date.ToString(),
+                IsEnabled = 1.ToString()
+                
+            };
+            db.ImagesProduct.Add(newImage);
             db.SaveChanges();
-            return Ok(newProd);
+            prod.IdProduct = newProd.Id;
+            return Ok(prod);
 
         }
 
