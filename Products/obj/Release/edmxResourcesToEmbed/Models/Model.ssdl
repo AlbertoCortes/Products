@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DataProductsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ImagesProduct">
+    <Key>
+      <PropertyRef Name="IdImage" />
+    </Key>
+    <Property Name="IdImage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdImageProduct" Type="int" Nullable="false" />
+    <Property Name="Decription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Image" Type="varbinary(max)" Nullable="false" />
+    <Property Name="DateUpdate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsEnabled" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdType" Type="int" />
+    <Property Name="IdColor" Type="int" />
+    <Property Name="IdBrand" Type="int" />
+    <Property Name="IdProvider" Type="int" />
+    <Property Name="IdCatalog" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Observations" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PriceDistributor" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="PriceClient" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="PriceMember" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="IsEnabled" Type="bit" Nullable="false" />
+    <Property Name="Keywords" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateUpdate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ProductsImagesProduct">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="ImagesProduct" Type="Self.ImagesProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ImagesProduct">
+        <PropertyRef Name="IdImageProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DataProductsModelStoreContainer">
+    <EntitySet Name="ImagesProduct" EntityType="Self.ImagesProduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ProductsImagesProduct" Association="Self.FK_ProductsImagesProduct">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ImagesProduct" EntitySet="ImagesProduct" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

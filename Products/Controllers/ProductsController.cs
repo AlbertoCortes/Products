@@ -128,9 +128,9 @@ namespace Products.Controllers
                     Keywords = "",
                     IsEnabled = true,
                     DateUpdate = DateTime.Now.Date
-
                 };
                 db.Products.Add(newProd);
+
                 Models.ImagesProduct newImage = new Models.ImagesProduct
                 {
                     IdImageProduct = newProd.Id,
@@ -140,8 +140,9 @@ namespace Products.Controllers
                     IsEnabled = 1.ToString()
                 };
                 db.ImagesProduct.Add(newImage);
-                prod.Image = newImage.Decription;
+
                 db.SaveChanges();
+                prod.Image = newImage.Decription;
                 prod.IdProduct = newProd.Id;
                 return Ok(prod);
             }
@@ -171,11 +172,18 @@ namespace Products.Controllers
                 prodModified.PriceClient = prod.Price;
 
                 //updating the product image
-                if (prod.Image != null)
-                {
-                    var image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == id);
+                var image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == id);
+                if (image == null)
+                    db.ImagesProduct.Add(new ImagesProduct
+                    {
+                        IdImageProduct = id,
+                        Decription = prod.Image,
+                        Image = new byte[0],
+                        DateUpdate = DateTime.Now.ToShortDateString(),
+                        IsEnabled = "1"
+                    });
+                else
                     image.Decription = prod.Image;
-                }
 
                 db.SaveChanges();
 
