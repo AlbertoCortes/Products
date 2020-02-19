@@ -13,7 +13,7 @@ namespace Products.Controllers
     {
         private DataProductsEntities db = new DataProductsEntities();
 
-        //GET api/Products/{id}
+        //GET api/products/{id}
         [HttpGet]
         [ResponseType(typeof(ProductDTO))]
         public IHttpActionResult GetById(int id)
@@ -26,7 +26,7 @@ namespace Products.Controllers
                     Name = p.Nombre,
                     Description = p.Description,
                     Price = p.PriceClient,
-                    Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == id).Image
+                    Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == id).Decription
                 })
                 .FirstOrDefault();
 
@@ -38,7 +38,7 @@ namespace Products.Controllers
             return Ok(productById);
         }
 
-        //GET api/Products
+        //GET api/products
         [HttpGet]
         [ResponseType(typeof(List<ProductDTO>))]
         public IHttpActionResult GetAll()
@@ -51,7 +51,7 @@ namespace Products.Controllers
                 Name = p.Nombre,
                 Description = p.Description,
                 Price = p.PriceClient,
-                Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == p.Id).Image
+                Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == p.Id).Decription
             });
 
             if (prod.Count() == 0)
@@ -62,7 +62,7 @@ namespace Products.Controllers
             return Ok(prod);
         }
 
-        //GET api/Products?name={keyword}
+        //GET api/products?name={keyword}
         [HttpGet]
         [ResponseType(typeof(List<ProductDTO>))]
         public IHttpActionResult GetByName(string name)
@@ -75,7 +75,7 @@ namespace Products.Controllers
                     Name = p.Nombre,
                     Description = p.Description,
                     Price = p.PriceClient,
-                    Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == p.Id).Image
+                    Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == p.Id).Decription
                 });
 
             if (productByName.Count() == 0)
@@ -86,7 +86,7 @@ namespace Products.Controllers
             return Ok(productByName);
         }
 
-        //POST api/Products
+        //POST api/products
         [HttpPost]
         [ResponseType(typeof(ProductDTO))]
         public IHttpActionResult Add([FromBody]ProductDTO prod)
@@ -112,8 +112,9 @@ namespace Products.Controllers
                 Models.ImagesProduct newImage = new Models.ImagesProduct
                 {
                     IdImageProduct = newProd.Id,
-                    Image = prod.Image,
-                    Decription = "image",
+                    Image = null,
+                    //###############################
+                    Decription = "Working on...",
                     DateUpdate = DateTime.Now.Date.ToString(),
                     IsEnabled = 1.ToString()
 
@@ -132,7 +133,7 @@ namespace Products.Controllers
             }
         }
 
-        //PUT api/Products/5
+        //PUT api/products/5
         [HttpPut]
         [ResponseType(typeof(ProductDTO))]
         public IHttpActionResult Update(int id, [FromBody]ProductDTO prod)
@@ -155,7 +156,7 @@ namespace Products.Controllers
                 if (prod.Image != null)
                 {
                     var image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == id);
-                    image.Image = prod.Image;
+                    image.Decription = prod.Image;
                 }
 
                 db.SaveChanges();
@@ -170,7 +171,7 @@ namespace Products.Controllers
             }
         }
 
-        //DELETE api/Products/5
+        //DELETE api/products/5
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
