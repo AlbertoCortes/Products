@@ -13,25 +13,6 @@ namespace Products.Controllers
     {
         private DataProductsEntities db = new DataProductsEntities();
 
-        //private List<ProductDTO> CastFromDB()
-        //{
-        //    List<ProductDTO> prod = new List<ProductDTO>();
-        //    foreach (var item in db.Products)
-        //    {
-        //        prod.Add(new ProductDTO
-        //        {
-        //            IdProduct = item.Id,
-        //            Name = item.Nombre,
-        //            Description = item.Description,
-        //            Price = item.PriceClient,
-        //             Image = db.ImagesProduct.Where(p => p.IdImageProduct == item.Id).Select(s => s.Image).FirstOrDefault()
-        //            //Image = Convert.FromBase64String(db.ImagesProduct.Where(p => p.IdImageProduct == item.Id).Select(s => s.Image).FirstOrDefault())
-        //        }
-        //        );
-        //    }
-
-        //    return prod;
-        //}
 
         [HttpGet]
         [ResponseType(typeof(ProductDTO))]
@@ -110,33 +91,42 @@ namespace Products.Controllers
         [HttpPost]
         public IHttpActionResult Post([FromBody]ProductDTO prod)
         {
-            
-            Models.Products newProd = new Models.Products {
-                IdCatalog = 3,
-                Nombre = prod.Name,
-                Description = prod.Description,
-                PriceClient = prod.Price,
-                Title= "",
-                Observations = "",
-                Keywords = "",
-                IsEnabled = true,
-                DateUpdate = DateTime.Now.Date
-                
-            };
-            db.Products.Add(newProd);
-            //db.SaveChanges();
-            Models.ImagesProduct newImage = new Models.ImagesProduct {
-                IdImageProduct = newProd.Id,
-                Image = prod.Image,
-                Decription = "image",
-                DateUpdate = DateTime.Now.Date.ToString(),
-                IsEnabled = 1.ToString()
-                
-            };
-            db.ImagesProduct.Add(newImage);
-            db.SaveChanges();
-            prod.IdProduct = newProd.Id;
-            return Ok(prod);
+            try
+            {
+                Models.Products newProd = new Models.Products
+                {
+                    IdCatalog = 3,
+                    Nombre = prod.Name,
+                    Description = prod.Description,
+                    PriceClient = prod.Price,
+                    Title = "",
+                    Observations = "",
+                    Keywords = "",
+                    IsEnabled = true,
+                    DateUpdate = DateTime.Now.Date
+
+                };
+                db.Products.Add(newProd);
+                Models.ImagesProduct newImage = new Models.ImagesProduct
+                {
+                    IdImageProduct = newProd.Id,
+                    Image = prod.Image,
+                    Decription = "image",
+                    DateUpdate = DateTime.Now.Date.ToString(),
+                    IsEnabled = 1.ToString()
+
+                };
+                db.ImagesProduct.Add(newImage);
+                db.SaveChanges();
+                prod.IdProduct = newProd.Id;
+                return Ok(prod);
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Product  not inserted on DB error: " + e.ToString());
+                throw;
+            }
 
         }
 
