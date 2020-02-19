@@ -1,17 +1,40 @@
-﻿using Products.Models;
+﻿using Newtonsoft.Json.Linq;
+using Products.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Script.Serialization;
 
 namespace Products.Controllers
 {
     public class ProductsController : ApiController
     {
         private DataProductsEntities db = new DataProductsEntities();
+        private string RandomImageForProduct()
+        {
+            string ApiUrl = "https://api.unsplash.com/photos/random?client_id=RR8zTp6LTR2TmVYodb76GyD0Z5SaXaGUoYxX3lr4TJg";
+            var request = (HttpWebRequest)WebRequest.Create(ApiUrl);
+            var content = string.Empty;
+            using (var response = (HttpWebResponse)request.GetResponse())
+            {
+                using (var stream = response.GetResponseStream())
+                {
+                    using (var sr = new StreamReader(stream))
+                    {
+                        content = sr.ReadToEnd();
+                    }
+                }
+            }
+            JObject objs = JObject.Parse(content);
+            string URL = objs["urls"]["small"].ToString();
+            return URL;
+        }
 
         //GET api/products/{id}
         [HttpGet]
@@ -91,41 +114,36 @@ namespace Products.Controllers
         [ResponseType(typeof(ProductDTO))]
         public IHttpActionResult Add([FromBody]ProductDTO prod)
         {
+
             try
             {
-            Models.Products newProd = new Models.Products
-            {
-                IdCatalog = 3,
-                Nombre = prod.Name,
-                Description = prod.Description,
-                PriceClient = prod.Price,
-                Title = "",
-                Observations = "",
-                Keywords = "",
-                IsEnabled = true,
-                DateUpdate = DateTime.Now.Date
+                Models.Products newProd = new Models.Products
+                {
+                    IdCatalog = 3,
+                    Nombre = prod.Name,
+                    Description = prod.Description,
+                    PriceClient = prod.Price,
+                    Title = "",
+                    Observations = "",
+                    Keywords = "",
+                    IsEnabled = true,
+                    DateUpdate = DateTime.Now.Date
 
-            };
-            db.Products.Add(newProd);
-            if (prod.Image != null)
-            {
+                };
+                db.Products.Add(newProd);
                 Models.ImagesProduct newImage = new Models.ImagesProduct
                 {
                     IdImageProduct = newProd.Id,
-                    Image = null,
-                    //###############################
-                    Decription = "Working on...",
+                    Image = Encoding.ASCII.GetBytes(""),
+                    Decription = RandomImageForProduct(),
                     DateUpdate = DateTime.Now.Date.ToString(),
                     IsEnabled = 1.ToString()
-
                 };
                 db.ImagesProduct.Add(newImage);
-            }
-
-            db.SaveChanges();
-            prod.IdProduct = newProd.Id;
-
-            return Ok(prod);
+                prod.Image = newImage.Decription;
+                db.SaveChanges();
+                prod.IdProduct = newProd.Id;
+                return Ok(prod);
             }
             catch (Exception e)
             {
