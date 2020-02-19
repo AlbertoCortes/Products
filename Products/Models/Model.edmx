@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataProductsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ImagesProduct">
+          <Key>
+            <PropertyRef Name="IdImage" />
+          </Key>
+          <Property Name="IdImage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdImageProduct" Type="int" Nullable="false" />
+          <Property Name="Decription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Image" Type="varbinary(max)" Nullable="false" />
+          <Property Name="DateUpdate" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsEnabled" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdType" Type="int" />
+          <Property Name="IdColor" Type="int" />
+          <Property Name="IdBrand" Type="int" />
+          <Property Name="IdProvider" Type="int" />
+          <Property Name="IdCatalog" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Observations" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PriceDistributor" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PriceClient" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PriceMember" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="Keywords" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateUpdate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ProductsImagesProduct">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ImagesProduct" Type="Self.ImagesProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImagesProduct">
+              <PropertyRef Name="IdImageProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataProductsModelStoreContainer">
+          <EntitySet Name="ImagesProduct" EntityType="Self.ImagesProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ProductsImagesProduct" Association="Self.FK_ProductsImagesProduct">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ImagesProduct" EntitySet="ImagesProduct" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataProductsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ImagesProduct">
+          <Key>
+            <PropertyRef Name="IdImage" />
+          </Key>
+          <Property Name="IdImage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdImageProduct" Type="Int32" Nullable="false" />
+          <Property Name="Decription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="DateUpdate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEnabled" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductsImagesProduct" FromRole="ImagesProduct" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdType" Type="Int32" />
+          <Property Name="IdColor" Type="Int32" />
+          <Property Name="IdBrand" Type="Int32" />
+          <Property Name="IdProvider" Type="Int32" />
+          <Property Name="IdCatalog" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Observations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PriceDistributor" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PriceClient" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PriceMember" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="Keywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ImagesProduct" Relationship="Self.FK_ProductsImagesProduct" FromRole="Products" ToRole="ImagesProduct" />
+        </EntityType>
+        <Association Name="FK_ProductsImagesProduct">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ImagesProduct" Type="Self.ImagesProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImagesProduct">
+              <PropertyRef Name="IdImageProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataProductsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ImagesProduct" EntityType="Self.ImagesProduct" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <AssociationSet Name="FK_ProductsImagesProduct" Association="Self.FK_ProductsImagesProduct">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ImagesProduct" EntitySet="ImagesProduct" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataProductsModelStoreContainer" CdmEntityContainer="DataProductsEntities">
+          <EntitySetMapping Name="ImagesProduct">
+            <EntityTypeMapping TypeName="DataProductsModel.ImagesProduct">
+              <MappingFragment StoreEntitySet="ImagesProduct">
+                <ScalarProperty Name="IdImage" ColumnName="IdImage" />
+                <ScalarProperty Name="IdImageProduct" ColumnName="IdImageProduct" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="DataProductsModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="IdColor" ColumnName="IdColor" />
+                <ScalarProperty Name="IdBrand" ColumnName="IdBrand" />
+                <ScalarProperty Name="IdProvider" ColumnName="IdProvider" />
+                <ScalarProperty Name="IdCatalog" ColumnName="IdCatalog" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Observations" ColumnName="Observations" />
+                <ScalarProperty Name="PriceDistributor" ColumnName="PriceDistributor" />
+                <ScalarProperty Name="PriceClient" ColumnName="PriceClient" />
+                <ScalarProperty Name="PriceMember" ColumnName="PriceMember" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="Keywords" ColumnName="Keywords" />
+                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
