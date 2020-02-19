@@ -20,7 +20,8 @@ namespace Products.Controllers
         {
             var productById = db.Products
                 .Where(p => p.Id == id && p.IsEnabled == true)
-                .Select(p => new ProductDTO {
+                .Select(p => new ProductDTO
+                {
                     IdProduct = p.Id,
                     Name = p.Nombre,
                     Description = p.Description,
@@ -44,7 +45,8 @@ namespace Products.Controllers
         {
             var prod = db.Products
             .Where(p => p.IsEnabled == true)
-            .Select(p => new ProductDTO {
+            .Select(p => new ProductDTO
+            {
                 IdProduct = p.Id,
                 Name = p.Nombre,
                 Description = p.Description,
@@ -91,20 +93,22 @@ namespace Products.Controllers
         {
             try
             {
-                Models.Products newProd = new Models.Products
-                {
-                    IdCatalog = 3,
-                    Nombre = prod.Name,
-                    Description = prod.Description,
-                    PriceClient = prod.Price,
-                    Title = "",
-                    Observations = "",
-                    Keywords = "",
-                    IsEnabled = true,
-                    DateUpdate = DateTime.Now.Date
+            Models.Products newProd = new Models.Products
+            {
+                IdCatalog = 3,
+                Nombre = prod.Name,
+                Description = prod.Description,
+                PriceClient = prod.Price,
+                Title = "",
+                Observations = "",
+                Keywords = "",
+                IsEnabled = true,
+                DateUpdate = DateTime.Now.Date
 
-                };
-                db.Products.Add(newProd);
+            };
+            db.Products.Add(newProd);
+            if (prod.Image != null)
+            {
                 Models.ImagesProduct newImage = new Models.ImagesProduct
                 {
                     IdImageProduct = newProd.Id,
@@ -115,10 +119,12 @@ namespace Products.Controllers
 
                 };
                 db.ImagesProduct.Add(newImage);
-                db.SaveChanges();
-                prod.IdProduct = newProd.Id;
+            }
 
-                return Ok(prod);
+            db.SaveChanges();
+            prod.IdProduct = newProd.Id;
+
+            return Ok(prod);
             }
             catch (Exception e)
             {
