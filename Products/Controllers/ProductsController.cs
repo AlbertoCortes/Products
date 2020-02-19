@@ -13,10 +13,10 @@ namespace Products.Controllers
     {
         private DataProductsEntities db = new DataProductsEntities();
 
-
+        //GET api/Products/{id}
         [HttpGet]
         [ResponseType(typeof(ProductDTO))]
-        public IHttpActionResult GetProduct(int id)
+        public IHttpActionResult GetById(int id)
         {
             var productById = db.Products
                 .Where(p => p.Id == id && p.IsEnabled == true)
@@ -37,13 +37,11 @@ namespace Products.Controllers
             return Ok(productById);
         }
 
-
-        // GET: api/Products
+        //GET api/Products
         [HttpGet]
         [ResponseType(typeof(List<ProductDTO>))]
-        public IHttpActionResult GetProducts()
+        public IHttpActionResult GetAll()
         {
-            //      List<ProductDTO> prod = CastFromDB();
             var prod = db.Products
             .Where(p => p.IsEnabled == true)
             .Select(p => new ProductDTO {
@@ -53,6 +51,7 @@ namespace Products.Controllers
                 Price = p.PriceClient,
                 Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == p.Id).Image
             });
+
             if (prod.Count() == 0)
             {
                 return NotFound();
@@ -61,12 +60,11 @@ namespace Products.Controllers
             return Ok(prod);
         }
 
-
+        //GET api/Products?name={keyword}
         [HttpGet]
         [ResponseType(typeof(List<ProductDTO>))]
-        public IHttpActionResult GetProduct(string name)
+        public IHttpActionResult GetByName(string name)
         {
-         //   List<ProductDTO> producstByKeyword = CastFromDB().Where(p => p.Name.Contains(name)).ToList();
             var productByName = db.Products
                 .Where(p => p.Nombre.Contains(name) && p.IsEnabled == true)
                 .Select(p => new ProductDTO
@@ -86,10 +84,10 @@ namespace Products.Controllers
             return Ok(productByName);
         }
 
-
-        // POST: api/Products
+        //POST api/Products
         [HttpPost]
-        public IHttpActionResult Post([FromBody]ProductDTO prod)
+        [ResponseType(typeof(ProductDTO))]
+        public IHttpActionResult Add([FromBody]ProductDTO prod)
         {
             try
             {
@@ -119,20 +117,19 @@ namespace Products.Controllers
                 db.ImagesProduct.Add(newImage);
                 db.SaveChanges();
                 prod.IdProduct = newProd.Id;
-                return Ok(prod);
 
+                return Ok(prod);
             }
             catch (Exception e)
             {
                 return BadRequest("Product  not inserted on DB error: " + e.ToString());
-                throw;
             }
-
         }
 
-        // PUT: api/Products/5
+        //PUT api/Products/5
         [HttpPut]
-        public IHttpActionResult Put([FromBody]ProductDTO prod)
+        [ResponseType(typeof(ProductDTO))]
+        public IHttpActionResult Update([FromBody]ProductDTO prod)
         {
             try
             {
@@ -142,34 +139,32 @@ namespace Products.Controllers
                 prodmodif.PriceClient = prod.Price;
                 db.SaveChanges();
                 return Ok(prod);
-
             }
             catch (Exception)
             {
                 return BadRequest("Product do not match with any in DB");
-                throw;
             }
-           
         }
 
-        // DELETE: api/Products/5
+        //DELETE api/Products/5
         [HttpDelete]
-        public bool Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             try
             {
-                db.Products.Remove(db.Products.FirstOrDefault(p => p.Id == id));
+                var productOnDB = db.Products.FirstOrDefault(p => p.Id == id);
+                productOnDB.IsEnabled = false;
+                var images = db.ImagesProduct.Where(i => i.IdImageProduct == id);
+                foreach (ImagesProduct image in images)
+                    image.IsEnabled = "0";
                 db.SaveChanges();
-                return true;
 
+                return Ok();
             }
             catch (Exception)
             {
-                return false;
-                throw;
+                return InternalServerError();
             }
-           
-            
         }
     }
 }
