@@ -33,18 +33,27 @@ namespace Products.Controllers
             return prod;
         }
 
+        [HttpGet]
         [ResponseType(typeof(ProductDTO))]
         public IHttpActionResult GetProduct(int id)
         {
-            List<ProductDTO> prod = CastFromDB();
-            ProductDTO productByID = prod.FirstOrDefault(p => p.IdProduct == id);
+            var productById = db.Products
+                .Where(p => p.Id == id && p.IsEnabled == true)
+                .Select(p => new ProductDTO {
+                    IdProduct = p.Id,
+                    Name = p.Nombre,
+                    Description = p.Description,
+                    Price = p.PriceClient,
+                    Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == id).Image
+                })
+                .FirstOrDefault();
 
-            if (productByID == null)
+            if (productById == null)
             {
                 return NotFound();
             }
 
-            return Ok(productByID);
+            return Ok(productById);
         }
 
 
