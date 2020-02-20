@@ -91,13 +91,22 @@ namespace Products.Controllers
                 Description = p.Description,
                 Price = p.PriceClient,
                 Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == p.Id).Decription
-            });
+
+             });
+
 
             //validate that there are products available
             if (prod.Count() == 0)
             {
                 return NotFound();
             }
+
+            new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity
+            {
+                aplicacion = "Products API: GetAll",
+                mensaje = " User Consult All Products ",
+                fecha = DateTime.Now
+            });
 
             return Ok(prod);
         }
@@ -123,6 +132,13 @@ namespace Products.Controllers
             {
                 return NotFound();
             }
+
+            new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity
+            {
+                aplicacion = "Products API: GetByName",
+                mensaje = name + " Product look up by user",
+                fecha = DateTime.Now
+            });
 
             return Ok(productByName);
         }
@@ -163,8 +179,18 @@ namespace Products.Controllers
                 db.SaveChanges();
                 prod.Image = newImage.Decription;
                 prod.IdProduct = newProd.Id;
+
+                new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity
+                {
+                    aplicacion = "Products API: Add",
+                    mensaje = " User Insert Products " + newProd.Id,
+                    fecha = DateTime.Now
+                });
+
                 return Ok(prod);
             }
+
+
             catch (Exception e)
             {
                 return BadRequest("Product  not inserted on DB error: " + e.ToString());
@@ -209,6 +235,14 @@ namespace Products.Controllers
 
                 //return the updated ProductDTO
                 prod.IdProduct = id;
+
+                new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity
+                {
+                    aplicacion = "Products API: Update",
+                    mensaje = " User modified a Product" + id,
+                    fecha = DateTime.Now
+                });
+
                 return Ok(prod);
             }
             catch (Exception)
@@ -237,6 +271,14 @@ namespace Products.Controllers
                     image.IsEnabled = "0";
 
                 db.SaveChanges();
+
+                new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity
+                {
+                    aplicacion = "Products API: Delete",
+                    mensaje = $" Product {id} Was Deleted",
+                    fecha = DateTime.Now
+                });
+
                 return Ok();
             }
             catch (Exception)
