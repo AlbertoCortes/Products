@@ -10,6 +10,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <_PublishTargetUrl>ftp://waws-prod-dm1-153.ftp.azurewebsites.windows.net/site/wwwroot</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
+    <File Include="bin/AcademyLog.dll">
+      <publishTime>02/20/2020 08:33:33</publishTime>
+    </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>02/19/2020 09:54:22</publishTime>
     </File>
@@ -26,10 +29,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/19/2020 09:54:23</publishTime>
     </File>
     <File Include="bin/Products.dll">
-      <publishTime>02/20/2020 07:41:16</publishTime>
+      <publishTime>02/20/2020 15:40:14</publishTime>
     </File>
     <File Include="bin/Products.pdb">
-      <publishTime>02/20/2020 07:41:16</publishTime>
+      <publishTime>02/20/2020 15:40:14</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>02/19/2020 09:54:23</publishTime>
@@ -173,7 +176,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/08/2017 01:30:56</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
-      <publishTime>02/19/2020 09:54:22</publishTime>
+      <publishTime>11/28/2018 13:00:36</publishTime>
     </File>
     <File Include="bin/System.Web.Http.dll">
       <publishTime>02/19/2020 09:54:22</publishTime>
@@ -191,7 +194,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/19/2020 09:54:21</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>02/20/2020 07:41:19</publishTime>
+      <publishTime>02/20/2020 15:40:22</publishTime>
     </File>
   </ItemGroup>
 </Project>

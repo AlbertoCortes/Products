@@ -43,86 +43,110 @@ namespace Products.Controllers
         [ResponseType(typeof(ProductDTO))]
         public IHttpActionResult GetById(int id)
         {
-            var productById = db.Products
-                .Where(p => p.Id == id && p.IsEnabled == true)
+            try
+            {
+                var productById = db.Products
+                    .Where(p => p.Id == id && p.IsEnabled == true)
+                    .Select(p => new ProductDTO
+                    {
+                        IdProduct = p.Id,
+                        Name = p.Nombre,
+                        Description = p.Description,
+                        Price = p.PriceClient,
+                        Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == id).Decription
+                    })
+                    .FirstOrDefault();
+
+                if (productById == null)
+                {
+                    return NotFound();
+                }
+
+                new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity
+                {
+                    aplicacion = "Products API: GetByID",
+                    mensaje = id + " Product look up by user",
+                    fecha = DateTime.Now
+                });
+                return Ok(productById);
+            }
+            catch (Exception)
+            {
+                return StatusCode(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        //GET api/products/page/numPages
+        [Route("page/numPages")]
+        [HttpGet]
+        [ResponseType(typeof(int))]
+        public IHttpActionResult GetNumPages()
+        {
+            try
+            {
+                int NumPages = 0;
+                var products = db.Products.Count(p => p.IsEnabled == true);
+                if (products % 10 > 0)
+                    NumPages = products / 10 + 1;
+                else
+                    NumPages = products / 10;
+
+                return Ok(NumPages);
+            }
+            catch (Exception)
+            {
+                return StatusCode(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        //GET api/products/page/{pageNumber}
+        [Route("page/{pageNumber}")]
+        [HttpGet]
+        [ResponseType(typeof(List<ProductDTO>))]
+        public IHttpActionResult GetAll(int pageNumber = 1)
+        {
+            try
+            {
+                if (pageNumber < 0)
+                    return BadRequest("The page number should be integer and higer than 0");
+
+                //geting the specific page based on pageLength
+                int pageLength = 10;
+                var prod = db.Products
+                .Where(p => p.IsEnabled == true)
+                .OrderBy(p => p.Id)
+                .Skip((pageNumber - 1) * pageLength)
+                .Take(pageLength)
                 .Select(p => new ProductDTO
                 {
                     IdProduct = p.Id,
                     Name = p.Nombre,
                     Description = p.Description,
                     Price = p.PriceClient,
-                    Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == id).Decription
-                })
-                .FirstOrDefault();
+                    Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == p.Id).Decription
 
-            if (productById == null)
-            {
-                return NotFound();
+                });
+
+
+                //validate that there are products available
+                if (prod.Count() == 0)
+                {
+                    return NotFound();
+                }
+
+                new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity
+                {
+                    aplicacion = "Products API: GetAll",
+                    mensaje = " User Consult All Products ",
+                    fecha = DateTime.Now
+                });
+
+                return Ok(prod);
             }
-
-            new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity {
-                aplicacion = "Products API: GetByID",
-                mensaje = id + " Product look up by user",
-                fecha = DateTime.Now
-            });
-            return Ok(productById);
-        }
-
-
-        [Route("page/numPages")]
-        [HttpGet]
-        [ResponseType(typeof(int))]
-        public IHttpActionResult GetNumPages()
-        {
-            int NumPages = 0;
-            var prod = db.Products
-                .Where(p => p.IsEnabled == true);
-            NumPages = prod.Count() / 10;
-            return Ok(NumPages);
-
-        }
-
-        //GET api/products
-        [Route("page/{pageNumber}")]
-        [HttpGet]
-        [ResponseType(typeof(List<ProductDTO>))]
-        public IHttpActionResult GetAll(int pageNumber = 1)
-        {
-            if (pageNumber < 0)
-                return BadRequest("The page number should be integer and higer than 0");
-
-            //geting the specific page based on pageLength
-            int pageLength = 10;
-            var prod = db.Products
-            .Where(p => p.IsEnabled == true)
-            .OrderBy(p => p.Id)
-            .Skip((pageNumber - 1) * pageLength)
-            .Take(pageLength)
-            .Select(p => new ProductDTO
+            catch (Exception)
             {
-                IdProduct = p.Id,
-                Name = p.Nombre,
-                Description = p.Description,
-                Price = p.PriceClient,
-                Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == p.Id).Decription
-
-             });
-
-
-            //validate that there are products available
-            if (prod.Count() == 0)
-            {
-                return NotFound();
+                return StatusCode(HttpStatusCode.InternalServerError);
             }
-
-            new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity
-            {
-                aplicacion = "Products API: GetAll",
-                mensaje = " User Consult All Products ",
-                fecha = DateTime.Now
-            });
-
-            return Ok(prod);
         }
 
         //GET api/products/finByName?name={productName}
@@ -131,30 +155,37 @@ namespace Products.Controllers
         [ResponseType(typeof(List<ProductDTO>))]
         public IHttpActionResult GetByName(string name)
         {
-            var productByName = db.Products
-                .Where(p => p.Nombre.Contains(name) && p.IsEnabled == true)
-                .Select(p => new ProductDTO
+            try
+            {
+                var productByName = db.Products
+                    .Where(p => p.Nombre.Contains(name) && p.IsEnabled == true)
+                    .Select(p => new ProductDTO
+                    {
+                        IdProduct = p.Id,
+                        Name = p.Nombre,
+                        Description = p.Description,
+                        Price = p.PriceClient,
+                        Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == p.Id).Decription
+                    });
+
+                if (productByName.Count() == 0)
                 {
-                    IdProduct = p.Id,
-                    Name = p.Nombre,
-                    Description = p.Description,
-                    Price = p.PriceClient,
-                    Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == p.Id).Decription
+                    return NotFound();
+                }
+
+                new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity
+                {
+                    aplicacion = "Products API: GetByName",
+                    mensaje = name + " Product look up by user",
+                    fecha = DateTime.Now
                 });
 
-            if (productByName.Count() == 0)
-            {
-                return NotFound();
+                return Ok(productByName);
             }
-
-            new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity
+            catch (Exception)
             {
-                aplicacion = "Products API: GetByName",
-                mensaje = name + " Product look up by user",
-                fecha = DateTime.Now
-            });
-
-            return Ok(productByName);
+                return StatusCode(HttpStatusCode.InternalServerError);
+            }
         }
 
         //POST api/products
@@ -163,9 +194,9 @@ namespace Products.Controllers
         [ResponseType(typeof(ProductDTO))]
         public IHttpActionResult Add([FromBody]ProductDTO prod)
         {
-
             try
             {
+                //Adding New product
                 Models.Products newProd = new Models.Products
                 {
                     IdCatalog = 3,
@@ -180,6 +211,7 @@ namespace Products.Controllers
                 };
                 db.Products.Add(newProd);
 
+                //ading img
                 Models.ImagesProduct newImage = new Models.ImagesProduct
                 {
                     IdImageProduct = newProd.Id,
@@ -189,11 +221,9 @@ namespace Products.Controllers
                     IsEnabled = 1.ToString()
                 };
                 db.ImagesProduct.Add(newImage);
-
                 db.SaveChanges();
-                prod.Image = newImage.Decription;
-                prod.IdProduct = newProd.Id;
 
+                //Log
                 new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity
                 {
                     aplicacion = "Products API: Add",
@@ -201,6 +231,8 @@ namespace Products.Controllers
                     fecha = DateTime.Now
                 });
 
+                prod.Image = newImage.Decription;
+                prod.IdProduct = newProd.Id;
                 return Ok(prod);
             }
 

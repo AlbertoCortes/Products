@@ -69,3 +69,4 @@ C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\bin\Microsoft.Web.In
 C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\bin\Swashbuckle.Core.dll
 C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\bin\WebActivatorEx.dll
 C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\obj\Release\Products.csprojAssemblyReference.cache
+C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\bin\AcademyLog.dll
