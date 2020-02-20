@@ -107,8 +107,17 @@ namespace Products.Controllers
         {
             try
             {
-                if (pageNumber < 0)
-                    return BadRequest("The page number should be integer and higer than 0");
+                //obtaining the number of pages
+                int NumPages = 0;
+                int products = db.Products.Count(p => p.IsEnabled == true);
+                if (products % 10 > 0)
+                    NumPages = products / 10 + 1;
+                else
+                    NumPages = products / 10;
+
+                //validat that the page exist
+                if (pageNumber < 0 || pageNumber > NumPages)
+                    return BadRequest("The page number should be between 0 and " + NumPages);
 
                 //geting the specific page based on pageLength
                 int pageLength = 10;
