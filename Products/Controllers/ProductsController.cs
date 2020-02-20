@@ -77,11 +77,12 @@ namespace Products.Controllers
             if (pageNumber < 0)
                 return BadRequest("The page number should be integer and higer than 0");
 
+            //geting the specific page based on pageLength
             int pageLength = 10;
-            int MaxID = db.Products.ElementAt(pageNumber * pageLength).Id;
-
             var prod = db.Products
-            .Where(p => p.IsEnabled == true && p.Id < MaxID)
+            .Where(p => p.IsEnabled == true)
+            .OrderBy(p => p.Id)
+            .Skip((pageNumber - 1) * pageLength)
             .Take(pageLength)
             .Select(p => new ProductDTO
             {
@@ -92,6 +93,7 @@ namespace Products.Controllers
                 Image = db.ImagesProduct.FirstOrDefault(i => i.IdImageProduct == p.Id).Decription
             });
 
+            //validate that there are products available
             if (prod.Count() == 0)
             {
                 return NotFound();
