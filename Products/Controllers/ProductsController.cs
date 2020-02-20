@@ -68,6 +68,20 @@ namespace Products.Controllers
             return Ok(productById);
         }
 
+
+        [Route("page/numPages")]
+        [HttpGet]
+        [ResponseType(typeof(int))]
+        public IHttpActionResult GetNumPages()
+        {
+            int NumPages = 0;
+            var prod = db.Products
+                .Where(p => p.IsEnabled == true);
+            NumPages = prod.Count() / 10;
+            return Ok(NumPages);
+
+        }
+
         //GET api/products
         [Route("page/{pageNumber}")]
         [HttpGet]
