@@ -13,6 +13,7 @@ using System.Web.Script.Serialization;
 
 namespace Products.Controllers
 {
+    [RoutePrefix("api/products")]
     public class ProductsController : ApiController
     {
         private DataProductsEntities db = new DataProductsEntities();
@@ -37,6 +38,7 @@ namespace Products.Controllers
         }
 
         //GET api/products/{id}
+        [Route("{id}")]
         [HttpGet]
         [ResponseType(typeof(ProductDTO))]
         public IHttpActionResult GetById(int id)
@@ -62,6 +64,7 @@ namespace Products.Controllers
         }
 
         //GET api/products
+        [Route("")]
         [HttpGet]
         [ResponseType(typeof(List<ProductDTO>))]
         public IHttpActionResult GetAll()
@@ -85,7 +88,8 @@ namespace Products.Controllers
             return Ok(prod);
         }
 
-        //GET api/products?name={keyword}
+        //GET api/products/finByName?name={productName}
+        [Route("findByName")]
         [HttpGet]
         [ResponseType(typeof(List<ProductDTO>))]
         public IHttpActionResult GetByName(string name)
@@ -110,6 +114,7 @@ namespace Products.Controllers
         }
 
         //POST api/products
+        [Route("")]
         [HttpPost]
         [ResponseType(typeof(ProductDTO))]
         public IHttpActionResult Add([FromBody]ProductDTO prod)
@@ -153,6 +158,7 @@ namespace Products.Controllers
         }
 
         //PUT api/products/5
+        [Route("{id}")]
         [HttpPut]
         [ResponseType(typeof(ProductDTO))]
         public IHttpActionResult Update(int id, [FromBody]ProductDTO prod)
@@ -198,6 +204,7 @@ namespace Products.Controllers
         }
 
         //DELETE api/products/5
+        [Route("{id}")]
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
