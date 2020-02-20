@@ -205,3 +205,4 @@ C:\Users\Curso\Documents\Academia\Products\Products\obj\Debug\Products.pdb
 C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\bin\Swashbuckle.Core.dll
 C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\bin\WebActivatorEx.dll
+C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\bin\AcademyLog.dll

@@ -60,17 +60,29 @@ namespace Products.Controllers
                 return NotFound();
             }
 
+            new AcademyLog.Log().ConnectToWebAPI(new AcademyLog.LogEntity {
+                aplicacion = "Products API: GetByID",
+                mensaje = id + " Product look up by user",
+                fecha = DateTime.Now
+            });
             return Ok(productById);
         }
 
         //GET api/products
-        [Route("")]
+        [Route("page/{pageNumber}")]
         [HttpGet]
         [ResponseType(typeof(List<ProductDTO>))]
-        public IHttpActionResult GetAll()
+        public IHttpActionResult GetAll(int pageNumber = 1)
         {
+            if (pageNumber < 0)
+                return BadRequest("The page number should be integer and higer than 0");
+
+            int pageLength = 10;
+            int MaxID = db.Products.ElementAt(pageNumber * pageLength).Id;
+
             var prod = db.Products
-            .Where(p => p.IsEnabled == true)
+            .Where(p => p.IsEnabled == true && p.Id < MaxID)
+            .Take(pageLength)
             .Select(p => new ProductDTO
             {
                 IdProduct = p.Id,

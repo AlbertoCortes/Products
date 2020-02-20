@@ -65,3 +65,7 @@ C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\obj\Release\Products
 C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\obj\Release\Products.csproj.CopyComplete
 C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\obj\Release\Products.dll
 C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\obj\Release\Products.pdb
+C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\bin\Swashbuckle.Core.dll
+C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\bin\WebActivatorEx.dll
+C:\Users\Curso\source\repos\AlbertoCortes\Products\Products\obj\Release\Products.csprojAssemblyReference.cache
