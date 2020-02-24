@@ -17,9 +17,10 @@ namespace Products.Controllers
     public class ProductsController : ApiController
     {
         private DataProductsEntities db = new DataProductsEntities();
-        private string RandomImageForProduct()
+        string URL;
+        private string RandomImageForProduct(string name)
         {
-            string ApiUrl = "https://api.unsplash.com/photos/random?client_id=RR8zTp6LTR2TmVYodb76GyD0Z5SaXaGUoYxX3lr4TJg";
+            string ApiUrl = "https://api.unsplash.com/search/photos?query="+name+"&client_id=RR8zTp6LTR2TmVYodb76GyD0Z5SaXaGUoYxX3lr4TJg";
             var request = (HttpWebRequest)WebRequest.Create(ApiUrl);
             var content = string.Empty;
             using (var response = (HttpWebResponse)request.GetResponse())
@@ -33,7 +34,15 @@ namespace Products.Controllers
                 }
             }
             JObject objs = JObject.Parse(content);
-            string URL = objs["urls"]["small"].ToString();
+            int c = (Int32)objs["total"];
+            if (c>=1)
+            {
+                 URL = objs["results"][0]["urls"]["small"].ToString();
+            }
+            else {
+                 URL = RandomImageForProduct("random");
+            }
+            
             return URL;
         }
 
@@ -225,7 +234,7 @@ namespace Products.Controllers
                 {
                     IdImageProduct = newProd.Id,
                     Image = Encoding.ASCII.GetBytes(""),
-                    Decription = RandomImageForProduct(),
+                    Decription = RandomImageForProduct(prod.Name),
                     DateUpdate = DateTime.Now.Date.ToString(),
                     IsEnabled = 1.ToString()
                 };
